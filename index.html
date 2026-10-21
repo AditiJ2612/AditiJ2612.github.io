@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aditi Jajoo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Aditi Jajoo, full-stack software engineer building React and TypeScript tools engineers rely on.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one left-aligned column; a monitoring-style impact feed opens the page, then experience entries with a meta rail on the left */
+:root{
+  --bg:#F4F5F8; --surface:#FFFFFF; --ink:#12141C; --muted:#585E70; --line:#DADDE5;
+  --accent:#2A44C9; --accent-soft:#E6EAFB; --ok:#1C7F54; --ok-soft:#E1F3EA;
+  --f-display:"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --f-body:"Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:72px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1016; --surface:#151823; --ink:#E9EBF3; --muted:#9BA1B5; --line:#262A38;
+    --accent:#93A5FF; --accent-soft:#1D2442; --ok:#55C894; --ok-soft:#14291F; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1016; --surface:#151823; --ink:#E9EBF3; --muted:#9BA1B5; --line:#262A38;
+  --accent:#93A5FF; --accent-soft:#1D2442; --ok:#55C894; --ok-soft:#14291F; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto;padding-block:var(--s7) var(--s8);
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));
+  display:flex;flex-direction:column;gap:var(--s8)}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;text-wrap:balance;margin:0;letter-spacing:-0.01em}
+p{margin:0}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* Hero */
+.hero{display:flex;flex-direction:column;gap:var(--s5)}
+.status{display:inline-flex;align-items:center;gap:var(--s2);font-family:var(--f-mono);font-size:12.5px;color:var(--ok);
+  background:var(--ok-soft);padding:6px 12px;border-radius:999px;align-self:flex-start}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);animation:pulse 2.4s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 55%,transparent)}70%{box-shadow:0 0 0 7px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.hero h1{font-size:clamp(44px,8vw,84px);line-height:.98}
+.lede{font-size:clamp(19px,2.4vw,23px);line-height:1.45;max-width:34ch}
+.lede em{font-style:normal;color:var(--accent)}
+.links{display:flex;flex-wrap:wrap;gap:var(--s3) var(--s5);align-items:center;font-size:15px}
+.links .muted{color:var(--muted)}
+
+/* Impact feed */
+.feed{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.feed-head{display:flex;justify-content:space-between;align-items:center;gap:var(--s3);padding:var(--s3) var(--s5);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.feed-head .eyebrow:first-child{color:var(--ink)}
+.feed-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-family:var(--f-mono);font-size:13.5px;font-variant-numeric:tabular-nums;min-width:560px}
+td{padding:12px var(--s5);border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+tr:last-child td{border-bottom:0}
+.chip{display:inline-block;font-size:11px;letter-spacing:.06em;color:var(--ok);background:var(--ok-soft);padding:2px 8px;border-radius:4px}
+.svc{color:var(--ink);font-weight:500}
+.metric{color:var(--muted)}
+.delta{color:var(--accent);font-weight:500;text-align:right}
+.scope{color:var(--muted);text-align:right}
+
+/* Sections */
+section{display:flex;flex-direction:column;gap:var(--s6)}
+.sec-head{display:flex;flex-direction:column;gap:var(--s2)}
+.sec-head h2{font-size:clamp(28px,4vw,38px)}
+
+/* Experience + projects entries */
+.entries{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.entry{display:grid;grid-template-columns:220px 1fr;gap:var(--s4) var(--s7);padding-block:var(--s6);border-bottom:1px solid var(--line)}
+.meta{display:flex;flex-direction:column;gap:6px;font-family:var(--f-mono);font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.meta .org{font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--ink);letter-spacing:-0.01em}
+.body{display:flex;flex-direction:column;gap:var(--s3);min-width:0}
+.body h3{font-size:20px;line-height:1.25}
+.bul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s3)}
+.bul li{position:relative;padding-left:20px;color:var(--muted);max-width:66ch}
+.bul li::before{content:"";position:absolute;left:2px;top:.68em;width:7px;height:7px;border-radius:2px;background:var(--accent)}
+.bul strong{color:var(--ink);font-weight:600}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:var(--s1)}
+.tag{font-family:var(--f-mono);font-size:11.5px;color:var(--ink);border:1px solid var(--line);padding:2px 8px;border-radius:4px}
+
+/* Principles */
+.principles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s6) var(--s7)}
+.principle{display:flex;flex-direction:column;gap:var(--s2)}
+.principle h3{font-size:20px}
+.principle p{color:var(--muted);max-width:44ch}
+
+/* Skills + education */
+.split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s7)}
+dl{margin:0;display:flex;flex-direction:column;gap:var(--s4)}
+dt{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+dd{margin:0}
+.roles{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s5)}
+.role{display:flex;flex-direction:column;gap:2px}
+.role .when{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.role .what{font-weight:600}
+.role .where{color:var(--muted)}
+
+/* Contact */
+.contact{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:var(--s6);display:flex;flex-direction:column;gap:var(--s4)}
+.contact h2{font-size:clamp(26px,3.6vw,34px)}
+.contact p{color:var(--muted);max-width:52ch}
+.contact-row{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center}
+.addr{font-family:var(--f-mono);font-size:14.5px;user-select:all;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);overflow-wrap:anywhere}
+button{font:inherit;font-size:14px;font-weight:600;cursor:pointer;border:0;border-radius:8px;padding:9px 16px;background:var(--accent);color:var(--surface)}
+button:hover{filter:brightness(1.08)}
+.btn-ghost{display:inline-flex;align-items:center;padding:8px 14px;border:1px solid var(--line);border-radius:8px;text-decoration:none;color:var(--ink);font-weight:600;font-size:14px}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.copied{font-family:var(--f-mono);font-size:12.5px;color:var(--ok)}
+footer{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+
+@media (max-width:760px){
+  .entry{grid-template-columns:1fr;gap:var(--s3)}
+  .meta{flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:4px var(--s3)}
+  .principles,.split{grid-template-columns:1fr}
+  .wrap{gap:var(--s7)}
+}
+@media (prefers-reduced-motion:reduce){.dot{animation:none}}
+</style>
+<style>html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="status"><span class="dot" aria-hidden="true"></span>Open to frontend, full-stack &amp; design-engineer roles</span>
+    <h1>Aditi Jajoo</h1>
+    <p class="lede">Software engineer who designs and builds <em>fast, intuitive frontends</em> in React and TypeScript, from design doc to launch.</p>
+    <div class="links">
+      <a href="https://www.linkedin.com/in/aditi-jajoo-6667331bb/">LinkedIn</a>
+      <a href="#contact">Contact</a>
+      <span class="muted">New York, NY · open to relocation</span>
+    </div>
+  </header>
+
+  <div class="feed" aria-label="Impact at a glance">
+    <div class="feed-head">
+      <span class="eyebrow">Impact at a glance</span>
+      <span class="eyebrow">Measured results</span>
+    </div>
+    <div class="feed-scroll">
+      <table>
+        <tbody>
+          <tr><td><span class="chip">SHIPPED</span></td><td class="svc">Downtiming workflow</td><td class="metric">time-to-downtime</td><td class="delta">−40%</td><td class="scope">8,000+ daily users</td></tr>
+          <tr><td><span class="chip">SHIPPED</span></td><td class="svc">Alert catalog page</td><td class="metric">alert-debugging time</td><td class="delta">−30%</td><td class="scope">50+ alert owners</td></tr>
+          <tr><td><span class="chip">SHIPPED</span></td><td class="svc">On-call ticket automation</td><td class="metric">ticket creation</td><td class="delta">10 min → &lt;1 min</td><td class="scope">per alert</td></tr>
+          <tr><td><span class="chip">SHIPPED</span></td><td class="svc">Recommendation system</td><td class="metric">system efficiency</td><td class="delta">+40%</td><td class="scope">customer website</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <section id="experience" aria-labelledby="exp-h">
+    <div class="sec-head">
+      <span class="eyebrow">Career</span>
+      <h2 id="exp-h">Professional experience</h2>
+    </div>
+    <div class="entries">
+
+      <article class="entry">
+        <div class="meta">
+          <span class="org">Uber</span>
+          <span>Software Engineer I</span>
+          <span>Mar 2025 – Sep 2026</span>
+          <span>New York, NY</span>
+        </div>
+        <div class="body">
+          <ul class="bul">
+            <li>Led the redesign of the internal <strong>Downtiming workflow</strong> used daily by <strong>8,000+ employees</strong>, from design doc (ERD) to launch, adding configurable tags and multiple downtime modes; cut average time-to-downtime by <strong>40%</strong> and replaced the legacy flow.</li>
+            <li>Designed and built a <strong>data-dense alert catalog page</strong> giving <strong>50+ alert owners</strong> one view of thresholds, ownership, SNR trends, and firing history with live graphs; partnered with backend engineers on API changes, cutting alert-debugging time by <strong>30%</strong>.</li>
+            <li>Built <strong>LLM prompt workflows</strong> for Uber's internal AI agent to generate Jira tickets from alert templates, cutting ticket creation from <strong>~10 minutes to under 1 minute</strong> per alert.</li>
+            <li>Fixed a production bug that left metrics without on-call rotations; refactored our API handlers and restructured the response data, cutting future feature-development effort by <strong>20%</strong>.</li>
+            <li>Migrated and re-architected <strong>2 full-page surfaces</strong> (100+ internal users) in a company-wide initiative, moving data fetching from Apollo GraphQL to handler-based APIs and finishing <strong>2 weeks</strong> ahead of the team's timeline.</li>
+            <li>Built a reusable alert-context component on Baseweb, wrote <strong>Jest</strong> unit tests for React components, reviewed teammates' code, and added Mixpanel event tracking to measure usage.</li>
+          </ul>
+          <div class="tags"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Baseweb</span><span class="tag">Apollo GraphQL</span><span class="tag">Jest</span><span class="tag">Mixpanel</span></div>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="meta">
+          <span class="org">Nestingale</span>
+          <span>Software Engineer</span>
+          <span>Aug 2024 – Mar 2025</span>
+          <span>San Jose, CA</span>
+        </div>
+        <div class="body">
+          <ul class="bul">
+            <li>Built the recommendation logic, API, and parts of the frontend behind personalized suggestions on Nestingale's customer-facing website, increasing system efficiency by <strong>40%</strong> through data preprocessing and item grouping.</li>
+            <li>Built a <strong>responsive, customer-facing</strong> frontend feature for the website, and built TypeScript proofs of concept to explore UI approaches for new features.</li>
+            <li>Built backend services in Java on AWS, and fixed a bug in the Apache Kafka event-processing flow.</li>
+            <li>Prototyped fine-tuning an OpenAI model to group items and generate codes, to automate a manual Excel workflow.</li>
+          </ul>
+          <div class="tags"><span class="tag">TypeScript</span><span class="tag">Java</span><span class="tag">AWS</span><span class="tag">APIs</span></div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="projects" aria-labelledby="proj-h">
+    <div class="sec-head">
+      <span class="eyebrow">Side work</span>
+      <h2 id="proj-h">Projects</h2>
+    </div>
+    <div class="entries">
+      <article class="entry">
+        <div class="meta">
+          <span class="org">Food delivery platform</span>
+          <span>Feb 2024 – May 2024</span>
+        </div>
+        <div class="body">
+          <ul class="bul">
+            <li>Built a multi-vendor food delivery app end to end, from a React and Redux frontend styled with MUI and Tailwind CSS to a Spring Boot REST API and MongoDB.</li>
+            <li>Implemented JWT authentication, role-based access control, password reset, and <strong>Stripe</strong> payments.</li>
+          </ul>
+          <div class="tags"><span class="tag">React</span><span class="tag">Redux</span><span class="tag">Spring Boot</span><span class="tag">Stripe</span></div>
+        </div>
+      </article>
+      <article class="entry">
+        <div class="meta">
+          <span class="org">Webapp API</span>
+          <span>Sep 2023 – Dec 2023</span>
+        </div>
+        <div class="body">
+          <ul class="bul">
+            <li>Built Node.js and PostgreSQL REST APIs with CI/CD pipelines in GitHub Actions, cutting manual testing effort by <strong>30–40%</strong>.</li>
+            <li>Provisioned AWS infrastructure as code with Terraform, Pulumi, and Packer, including load balancing and SSL.</li>
+          </ul>
+          <div class="tags"><span class="tag">Node.js</span><span class="tag">PostgreSQL</span><span class="tag">GitHub Actions</span><span class="tag">AWS</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="how-h">
+    <div class="sec-head">
+      <span class="eyebrow">How I work</span>
+      <h2 id="how-h">Habits behind the results</h2>
+    </div>
+    <div class="principles">
+      <div class="principle"><h3>Write it down first</h3><p>I start bigger changes with a design doc, so the team agrees on the problem before anyone writes code.</p></div>
+      <div class="principle"><h3>Design in code</h3><p>I take a page from layout to working UI myself, and I care about how dense data reads at a glance.</p></div>
+      <div class="principle"><h3>Measure what ships</h3><p>I add Mixpanel event tracking to see how people actually use what I build, then iterate from there.</p></div>
+      <div class="principle"><h3>Keep quality high</h3><p>I write Jest tests for UI components, review teammates' code, and use Claude Code and Cursor daily while owning every line.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="bg-h">
+    <div class="sec-head">
+      <span class="eyebrow">Background</span>
+      <h2 id="bg-h">Skills &amp; education</h2>
+    </div>
+    <div class="split">
+      <dl>
+        <div><dt>Frontend</dt><dd>React, TypeScript, JavaScript, Redux, Apollo Client, HTML, CSS, SCSS, Tailwind CSS, Baseweb</dd></div>
+        <div><dt>Backend &amp; data</dt><dd>Node.js, Java, Python, REST APIs, GraphQL, PostgreSQL, MongoDB</dd></div>
+        <div><dt>Quality &amp; tooling</dt><dd>Jest, code reviews, Mixpanel, GitHub Actions, AWS, Figma</dd></div>
+        <div><dt>AI tools</dt><dd>Claude Code, Cursor, GitHub Copilot</dd></div>
+      </dl>
+      <ul class="roles">
+        <li class="role"><span class="when">Sep 2022 – May 2024</span><span class="what">M.S. Information Systems · Northeastern University</span><span class="where">Boston, MA</span></li>
+        <li class="role"><span class="when">Mar 2018 – Jun 2022</span><span class="what">B.E. Electronics &amp; Telecommunication · SIES Graduate School of Technology</span><span class="where">Mumbai, India</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact" class="contact" aria-labelledby="contact-h">
+    <span class="eyebrow">Contact</span>
+    <h2 id="contact-h">Let's talk</h2>
+    <p>Most of my professional work lives in private codebases. I'm happy to walk through any of it in more detail.</p>
+    <div class="contact-row">
+      <span class="addr" id="email">aditijajoo2612@gmail.com</span>
+      <button type="button" id="copy">Copy email</button>
+      <a class="btn-ghost" href="https://www.linkedin.com/in/aditi-jajoo-6667331bb/">LinkedIn</a>
+      <span class="copied" id="copied" aria-live="polite"></span>
+    </div>
+  </section>
+
+  <footer>© 2026 Aditi Jajoo · New York, NY</footer>
+</div>
+
+<script>
+(function(){
+  var btn=document.getElementById('copy'), out=document.getElementById('copied'), el=document.getElementById('email');
+  btn.addEventListener('click',function(){
+    var text=el.textContent.trim();
+    function select(){var r=document.createRange();r.selectNodeContents(el);var s=window.getSelection();s.removeAllRanges();s.addRange(r);out.textContent='Selected. Press Ctrl/Cmd+C to copy.';}
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(function(){out.textContent='Copied';},select);
+      }else{select();}
+    }catch(e){select();}
+  });
+})();
+</script>
+</body>
+</html>
